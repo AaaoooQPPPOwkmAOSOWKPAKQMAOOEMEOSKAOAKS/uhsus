@@ -1,0 +1,702 @@
+if game.PlaceId == 6403373529 then
+_G.HitboxSize = 10
+if not game.Workspace:FindFirstChild("SafeSpot") then
+    local SafeSpot = Instance.new("Model", game.Workspace)
+    SafeSpot.Name = "SafeSpot"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part1") then
+	local Part1 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part1.Name = "Part1"
+	Part1.Position = Vector3.new(20000, 0, 20000)
+	Part1.Size = Vector3.new(200, 10 ,200)
+	Part1.Anchored = true
+	Part1.Transparency = .5
+	Part1.Material = "ForceField"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part2") then
+	local Part2 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part2.Name = "Part2"
+	Part2.Position = Vector3.new(19905, 55, 20000)
+	Part2.Size = Vector3.new(10, 100, 200)
+	Part2.Anchored = true
+	Part2.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part3") then
+	local Part3 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part3.Name = "Part3"
+	Part3.Position = Vector3.new(20095, 55, 20000)
+	Part3.Size = Vector3.new(10, 100, 200)
+	Part3.Anchored = true
+	Part3.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part4") then
+	local Part4 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part4.Name = "Part4"
+	Part4.Position = Vector3.new(20000, 55, 20095)
+	Part4.Size = Vector3.new(180, 100, 10)
+	Part4.Anchored = true
+	Part4.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part5") then
+	local Part5 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part5.Name = "Part5"
+	Part5.Position = Vector3.new(20000, 55, 19905)
+	Part5.Size = Vector3.new(180, 100, 10)
+	Part5.Anchored = true
+	Part5.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part6") then
+	local Part6 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part6.Name = "Part6"
+	Part6.Position = Vector3.new(20000, 110, 20000)
+	Part6.Size = Vector3.new(200, 10, 200)
+	Part6.Anchored = true
+	Part6.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Checkmark") then
+    local checkmark = Instance.new("Part", game.Workspace.SafeSpot)
+    checkmark.Name = "Checkmark"
+    checkmark.Position = Vector3.new(20000, 55, 20000)
+    checkmark.Size = Vector3.new(200, 120, 200)
+    checkmark.Anchored = true
+    checkmark.CanCollide = false
+    checkmark.Transparency = 1
+end
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Slap Battles")
+
+local Section = Window:AddFolder("HALLOWEEN")
+
+Section:AddToggle({text = "Candy Farm", state = false, callback = function(Value)
+    _G.CandyFarm = Value
+    while _G.CandyFarm do       
+        for _, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+            pcall(function()   
+                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            end)
+        end    
+        task.wait()
+    end
+end})
+
+Section:AddButton({text = "Safespot", callback = function()
+    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - workspace.SafeSpot.Checkmark.Position).Magnitude
+        if not (distance <= (workspace.SafeSpot.Checkmark.Size.Magnitude / 2.8)) then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.Part1.CFrame * CFrame.new(0, 8, 0)
+        else
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, -6, 0)
+            end    
+        end
+    end
+end})
+
+local Places = Window:AddFolder("Places")
+
+Places:AddButton({text = "For Harvester", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(276.841827, 357.535675, 112.653069, -0.999177814, -2.62474398e-09, -0.040542189, 1.67840708e-09, 1, -1.06106036e-07, 0.040542189, -1.06086844e-07, -0.999177814)
+end})
+
+Places:AddButton({text = "For Poltergeist", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(459.075592, 364.173431, 19.6897945, -0.305642784, -9.96348319e-08, -0.952146232, -1.50244279e-08, 1, -9.98194594e-08, 0.952146232, -1.62036446e-08, -0.305642784)
+end})
+
+Places:AddButton({text = "For Revenant", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(296.660095, 359.311279, -18.2078533, 0.984282792, -9.6325099e-09, 0.176599652, -6.77775702e-09, 1, 9.23203416e-08, -0.176599652, -9.20662657e-08, 0.984282792)
+end})
+
+local Section1 = Window:AddFolder("For Hallow Jack")
+
+Section1:AddToggle({text = "Hitbox Extension", state = false, callback = function(Value)
+    _G.HitboxExtension = Value
+    if _G.HitboxExtension == false then
+        for _, v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and v.Character then
+                if v.Character:FindFirstChild("HumanoidRootPart") then
+                    v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(2, 2, 1)
+                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 1
+                end
+            end
+        end
+    end    
+    while _G.HitboxExtension do
+        for _, v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and v.Character then
+                if v.Character:FindFirstChild("HumanoidRootPart") then
+                    v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(_G.HitboxSize, _G.HitboxSize, _G.HitboxSize)
+                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0.65
+                end
+            end
+        end
+        task.wait()
+    end
+end})
+
+Section1:AddSlider({text = "Hitbox Size", min = 5, max = 15, value = 10, callback = function(Value)
+    _G.HitboxSize = Value
+end})
+
+Section1:AddToggle({text = "Auto Grave", state = false, callback = function(Value)
+    _G.AutoGrave = Value
+    while _G.AutoGrave do
+        for i,v in pairs(game.Workspace:GetChildren()) do
+            if v.Name == "Gravestone" then
+                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("KillstreakLevel") and game:GetService("Players").LocalPlayer.Character.KillstreakLevel.Value >= 10 then
+                    fireclickdetector(v.ClickDetector)
+                end
+            end
+        end
+        task.wait()
+    end
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+elseif game.PlaceId == 9015014224 then
+if not game.Workspace:FindFirstChild("SafeSpot") then
+    local SafeSpot = Instance.new("Model", game.Workspace)
+    SafeSpot.Name = "SafeSpot"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part1") then
+	local Part1 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part1.Name = "Part1"
+	Part1.Position = Vector3.new(20000, 0, 20000)
+	Part1.Size = Vector3.new(200, 10 ,200)
+	Part1.Anchored = true
+	Part1.Transparency = .5
+	Part1.Material = "ForceField"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part2") then
+	local Part2 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part2.Name = "Part2"
+	Part2.Position = Vector3.new(19905, 55, 20000)
+	Part2.Size = Vector3.new(10, 100, 200)
+	Part2.Anchored = true
+	Part2.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part3") then
+	local Part3 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part3.Name = "Part3"
+	Part3.Position = Vector3.new(20095, 55, 20000)
+	Part3.Size = Vector3.new(10, 100, 200)
+	Part3.Anchored = true
+	Part3.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part4") then
+	local Part4 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part4.Name = "Part4"
+	Part4.Position = Vector3.new(20000, 55, 20095)
+	Part4.Size = Vector3.new(180, 100, 10)
+	Part4.Anchored = true
+	Part4.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part5") then
+	local Part5 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part5.Name = "Part5"
+	Part5.Position = Vector3.new(20000, 55, 19905)
+	Part5.Size = Vector3.new(180, 100, 10)
+	Part5.Anchored = true
+	Part5.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part6") then
+	local Part6 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part6.Name = "Part6"
+	Part6.Position = Vector3.new(20000, 110, 20000)
+	Part6.Size = Vector3.new(200, 10, 200)
+	Part6.Anchored = true
+	Part6.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Checkmark") then
+    local checkmark = Instance.new("Part", game.Workspace.SafeSpot)
+    checkmark.Name = "Checkmark"
+    checkmark.Position = Vector3.new(20000, 55, 20000)
+    checkmark.Size = Vector3.new(200, 120, 200)
+    checkmark.Anchored = true
+    checkmark.CanCollide = false
+    checkmark.Transparency = 1
+end
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Slap Battles")
+
+local Section = Window:AddFolder("HALLOWEEN")
+
+Section:AddToggle({text = "Candy Farm", state = false, callback = function(Value)
+    _G.CandyFarm = Value
+    while _G.CandyFarm do       
+        for _, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+            pcall(function()   
+                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            end)
+        end    
+        task.wait()
+    end
+end})
+
+Section:AddButton({text = "Safespot", callback = function()
+    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - workspace.SafeSpot.Checkmark.Position).Magnitude
+        if not (distance <= (workspace.SafeSpot.Checkmark.Size.Magnitude / 2.8)) then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.Part1.CFrame * CFrame.new(0, 8, 0)
+        else
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, -6, 0)
+            end    
+        end
+    end
+end})
+
+local Places = Window:AddFolder("Places")
+
+Places:AddButton({text = "For Harvester", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(276.841827, 357.535675, 112.653069, -0.999177814, -2.62474398e-09, -0.040542189, 1.67840708e-09, 1, -1.06106036e-07, 0.040542189, -1.06086844e-07, -0.999177814)
+end})
+
+Places:AddButton({text = "For Poltergeist", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(459.075592, 364.173431, 19.6897945, -0.305642784, -9.96348319e-08, -0.952146232, -1.50244279e-08, 1, -9.98194594e-08, 0.952146232, -1.62036446e-08, -0.305642784)
+end})
+
+Places:AddButton({text = "For Revenant", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(296.660095, 359.311279, -18.2078533, 0.984282792, -9.6325099e-09, 0.176599652, -6.77775702e-09, 1, 9.23203416e-08, -0.176599652, -9.20662657e-08, 0.984282792)
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+elseif game.PlaceId == 11520107397 then
+_G.HitboxSize = 10
+if not game.Workspace:FindFirstChild("SafeSpot") then
+    local SafeSpot = Instance.new("Model", game.Workspace)
+    SafeSpot.Name = "SafeSpot"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part1") then
+	local Part1 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part1.Name = "Part1"
+	Part1.Position = Vector3.new(20000, 0, 20000)
+	Part1.Size = Vector3.new(200, 10 ,200)
+	Part1.Anchored = true
+	Part1.Transparency = .5
+	Part1.Material = "ForceField"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part2") then
+	local Part2 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part2.Name = "Part2"
+	Part2.Position = Vector3.new(19905, 55, 20000)
+	Part2.Size = Vector3.new(10, 100, 200)
+	Part2.Anchored = true
+	Part2.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part3") then
+	local Part3 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part3.Name = "Part3"
+	Part3.Position = Vector3.new(20095, 55, 20000)
+	Part3.Size = Vector3.new(10, 100, 200)
+	Part3.Anchored = true
+	Part3.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part4") then
+	local Part4 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part4.Name = "Part4"
+	Part4.Position = Vector3.new(20000, 55, 20095)
+	Part4.Size = Vector3.new(180, 100, 10)
+	Part4.Anchored = true
+	Part4.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part5") then
+	local Part5 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part5.Name = "Part5"
+	Part5.Position = Vector3.new(20000, 55, 19905)
+	Part5.Size = Vector3.new(180, 100, 10)
+	Part5.Anchored = true
+	Part5.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part6") then
+	local Part6 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part6.Name = "Part6"
+	Part6.Position = Vector3.new(20000, 110, 20000)
+	Part6.Size = Vector3.new(200, 10, 200)
+	Part6.Anchored = true
+	Part6.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Checkmark") then
+    local checkmark = Instance.new("Part", game.Workspace.SafeSpot)
+    checkmark.Name = "Checkmark"
+    checkmark.Position = Vector3.new(20000, 55, 20000)
+    checkmark.Size = Vector3.new(200, 120, 200)
+    checkmark.Anchored = true
+    checkmark.CanCollide = false
+    checkmark.Transparency = 1
+end
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Slap Battles")
+
+local Section = Window:AddFolder("HALLOWEEN")
+
+Section:AddToggle({text = "Candy Farm", state = false, callback = function(Value)
+    _G.CandyFarm = Value
+    while _G.CandyFarm do       
+        for _, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+            pcall(function()   
+                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            end)
+        end    
+        task.wait()
+    end
+end})
+
+Section:AddButton({text = "Safespot", callback = function()
+    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - workspace.SafeSpot.Checkmark.Position).Magnitude
+        if not (distance <= (workspace.SafeSpot.Checkmark.Size.Magnitude / 2.8)) then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.Part1.CFrame * CFrame.new(0, 8, 0)
+        else
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, -6, 0)
+            end    
+        end
+    end
+end})
+
+local Places = Window:AddFolder("Places")
+
+Places:AddButton({text = "For Harvester", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(276.841827, 357.535675, 112.653069, -0.999177814, -2.62474398e-09, -0.040542189, 1.67840708e-09, 1, -1.06106036e-07, 0.040542189, -1.06086844e-07, -0.999177814)
+end})
+
+Places:AddButton({text = "For Poltergeist", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(459.075592, 364.173431, 19.6897945, -0.305642784, -9.96348319e-08, -0.952146232, -1.50244279e-08, 1, -9.98194594e-08, 0.952146232, -1.62036446e-08, -0.305642784)
+end})
+
+Places:AddButton({text = "For Revenant", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(296.660095, 359.311279, -18.2078533, 0.984282792, -9.6325099e-09, 0.176599652, -6.77775702e-09, 1, 9.23203416e-08, -0.176599652, -9.20662657e-08, 0.984282792)
+end})
+
+local Section1 = Window:AddFolder("For Hallow Jack")
+
+Section1:AddToggle({text = "Hitbox Extension", state = false, callback = function(Value)
+    _G.HitboxExtension = Value
+    if _G.HitboxExtension == false then
+        for _, v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and v.Character then
+                if v.Character:FindFirstChild("HumanoidRootPart") then
+                    v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(2, 2, 1)
+                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 1
+                end
+            end
+        end
+    end
+    while _G.HitboxExtension do
+        for _, v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and v.Character then
+                if v.Character:FindFirstChild("HumanoidRootPart") then
+                    v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(_G.HitboxSize, _G.HitboxSize, _G.HitboxSize)
+                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0.65
+                end
+            end
+        end
+        task.wait()
+    end
+end})
+
+Section1:AddSlider({text = "Hitbox Size", min = 5, max = 15, value = 10, callback = function(Value)
+    _G.HitboxSize = Value
+end})
+
+Section1:AddToggle({text = "Auto Grave", state = false, callback = function(Value)
+    _G.AutoGrave = Value
+    while _G.AutoGrave do
+        for i,v in pairs(game.Workspace:GetChildren()) do
+            if v.Name == "Gravestone" then
+                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") and game:GetService("Players").LocalPlayer.Character:FindFirstChild("KillstreakLevel") and game:GetService("Players").LocalPlayer.Character.KillstreakLevel.Value >= 10 then
+                    fireclickdetector(v.ClickDetector)
+                end
+            end
+        end
+        task.wait()
+    end
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+elseif game.PlaceId == 124596094333302 then
+if not game.Workspace:FindFirstChild("SafeSpot") then
+    local SafeSpot = Instance.new("Model", game.Workspace)
+    SafeSpot.Name = "SafeSpot"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part1") then
+	local Part1 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part1.Name = "Part1"
+	Part1.Position = Vector3.new(20000, 0, 20000)
+	Part1.Size = Vector3.new(200, 10 ,200)
+	Part1.Anchored = true
+	Part1.Transparency = .5
+	Part1.Material = "ForceField"
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part2") then
+	local Part2 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part2.Name = "Part2"
+	Part2.Position = Vector3.new(19905, 55, 20000)
+	Part2.Size = Vector3.new(10, 100, 200)
+	Part2.Anchored = true
+	Part2.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part3") then
+	local Part3 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part3.Name = "Part3"
+	Part3.Position = Vector3.new(20095, 55, 20000)
+	Part3.Size = Vector3.new(10, 100, 200)
+	Part3.Anchored = true
+	Part3.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part4") then
+	local Part4 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part4.Name = "Part4"
+	Part4.Position = Vector3.new(20000, 55, 20095)
+	Part4.Size = Vector3.new(180, 100, 10)
+	Part4.Anchored = true
+	Part4.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part5") then
+	local Part5 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part5.Name = "Part5"
+	Part5.Position = Vector3.new(20000, 55, 19905)
+	Part5.Size = Vector3.new(180, 100, 10)
+	Part5.Anchored = true
+	Part5.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Part6") then
+	local Part6 = Instance.new("Part", game.Workspace.SafeSpot)
+	Part6.Name = "Part6"
+	Part6.Position = Vector3.new(20000, 110, 20000)
+	Part6.Size = Vector3.new(200, 10, 200)
+	Part6.Anchored = true
+	Part6.Transparency = 1
+end
+
+if not game.Workspace.SafeSpot:FindFirstChild("Checkmark") then
+    local checkmark = Instance.new("Part", game.Workspace.SafeSpot)
+    checkmark.Name = "Checkmark"
+    checkmark.Position = Vector3.new(20000, 55, 20000)
+    checkmark.Size = Vector3.new(200, 120, 200)
+    checkmark.Anchored = true
+    checkmark.CanCollide = false
+    checkmark.Transparency = 1
+end
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Slap Battles")
+
+local Section = Window:AddFolder("HALLOWEEN")
+
+Section:AddToggle({text = "Candy Farm", state = false, callback = function(Value)
+    _G.CandyFarm = Value
+    while _G.CandyFarm do       
+        for _, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+            pcall(function()   
+                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            end)
+        end    
+        task.wait()
+    end
+end})
+
+Section:AddButton({text = "Safespot", callback = function()
+    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+        local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - workspace.SafeSpot.Checkmark.Position).Magnitude
+        if not (distance <= (workspace.SafeSpot.Checkmark.Size.Magnitude / 2.8)) then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.Part1.CFrame * CFrame.new(0, 8, 0)
+        else
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("entered") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, -6, 0)
+            end    
+        end
+    end
+end})
+
+local Places = Window:AddFolder("Places")
+
+Places:AddButton({text = "For Harvester", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(276.841827, 357.535675, 112.653069, -0.999177814, -2.62474398e-09, -0.040542189, 1.67840708e-09, 1, -1.06106036e-07, 0.040542189, -1.06086844e-07, -0.999177814)
+end})
+
+Places:AddButton({text = "For Poltergeist", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(459.075592, 364.173431, 19.6897945, -0.305642784, -9.96348319e-08, -0.952146232, -1.50244279e-08, 1, -9.98194594e-08, 0.952146232, -1.62036446e-08, -0.305642784)
+end})
+
+Places:AddButton({text = "For Revenant", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(296.660095, 359.311279, -18.2078533, 0.984282792, -9.6325099e-09, 0.176599652, -6.77775702e-09, 1, 9.23203416e-08, -0.176599652, -9.20662657e-08, 0.984282792)
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+elseif game.PlaceId == 92483185275059 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Pim's Corn Maze")
+
+Window:AddButton({text = "Exit the maze", callback = function()
+    if game:GetService("Workspace"):FindFirstChild("Maze") and game:GetService("Workspace").Maze.transition.visual:FindFirstChild("Neon Exit Sign") then
+        if game:GetService("Workspace").Maze:FindFirstChild("BarnMaze") == nil then
+            game.Players.LocalPlayer.Character:PivotTo(game.Workspace.Maze.transition.visual["Neon Exit Sign"]:GetPivot())
+            wait(0.3)
+            for i,v in pairs(workspace:GetDescendants()) do
+                if v.Name == "EndPrompt" and v:IsA("ProximityPrompt") then
+                    fireproximityprompt(v)
+                end
+            end
+        else
+            game.StarterGui:SetCore("SendNotification", {Title = "Messages", Duration = 5, Text = "You couldn't exit now, get the gloves" })
+        end   
+    else
+        game.StarterGui:SetCore("SendNotification", {Title = "Messages", Duration = 5, Text = "Please start the maze" })
+    end
+end})
+
+Window:AddButton({text = "Get Harvester", callback = function()
+    if game:GetService("Workspace").Maze:FindFirstChild("BarnMaze") then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-342, 10, 328)
+        repeat task.wait() until game.Workspace.CutsceneFolder:FindFirstChild("Scaretrap")
+        repeat task.wait() until game.Workspace.CutsceneFolder:FindFirstChild("Slasher")
+        repeat task.wait() until game.Workspace.CutsceneFolder:FindFirstChild("Player1")
+        repeat task.wait() until game.Workspace.CutsceneFolder:FindFirstChild("CamPart")
+        repeat task.wait() until game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true
+        wait(0.5)
+        repeat task.wait() until not game.Workspace.CutsceneFolder:FindFirstChild("Scaretrap")
+        repeat task.wait() until not game.Workspace.CutsceneFolder:FindFirstChild("Slasher")
+        repeat task.wait() until not game.Workspace.CutsceneFolder:FindFirstChild("Player1")
+        repeat task.wait() until not game.Workspace.CutsceneFolder:FindFirstChild("CamPart")
+        repeat task.wait() until game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == false
+        wait(1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-84, 10, 1485)
+    end
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+elseif game.PlaceId == 103505724406848 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Zombies")
+
+Window:AddToggle({text = "Kill Aura", state = false, callback = function(Value)
+    _G.KillAura = Value
+    spawn(function()
+        while _G.KillAura and task.wait() do       
+            if game:GetService("Workspace"):WaitForChild("Enemies"):FindFirstChild("Boss Zombie") then
+                for i = 1,5 do
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GeneralHit"):FireServer(game:GetService("Workspace").Enemies["Boss Zombie"]:FindFirstChild("Head"))
+                end
+            end
+        end
+    end)
+    while _G.KillAura do       
+        for _, v in pairs(workspace.Enemies:GetChildren()) do
+            if v:FindFirstChild("HumanoidRootPart") then
+                if v.HumanoidRootPart.Position.Y < -7 then
+                    if v.Ragdolled.Value == false and not v:FindFirstChild("Boss Zombie") then
+                        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GeneralHit"):FireServer(v:FindFirstChild("Head"))
+                    end
+                end
+            end
+        end
+        task.wait()
+    end
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+elseif game.PlaceId == 82340649038345 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/0-BaconScripter-0/Mobile-Support-For-UI-Library/refs/heads/main/Unnamed.lua"))()
+local Window = Library:CreateWindow("Halloween 26")
+
+Window:AddToggle({text = "Teleport to Candycorn", state = false, callback = function(Value)
+    _G.TptoCandycorn = Value
+    while _G.TptoCandycorn do       
+        pcall(function()
+        local closestcandycorn, dist = nil, math.huge
+            for _, minion in pairs(workspace.NPC:GetChildren()) do
+                if minion.Name == "Minion" then
+                    local candy = minion:FindFirstChild("CandyCorn")
+                    local humanoid = minion:FindFirstChildOfClass("Humanoid") 
+                    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - candy.Position).Magnitude
+                    if distance < dist and humanoid and humanoid.Health > 0 then
+                        dist = distance
+                        closestcandycorn = candy
+                    end
+                end
+            end
+            
+            if closestcandycorn then                           
+                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = closestcandycorn.CFrame * CFrame.new(0,10,0)
+            end
+        end)
+        task.wait()
+    end
+end})
+
+Window:AddToggle({text = "Kills Candycorn", state = false, callback = function(Value)
+    _G.KillsCandycorn = Value
+    while _G.KillsCandycorn do       
+        pcall(function()
+        local closest = nil
+        local ccdist = 20
+            for _, minion in pairs(workspace.NPC:GetChildren()) do
+                if minion.Name == "Minion" then
+                    local candy = minion:FindFirstChild("CandyCorn")
+                    local humanoid = minion:FindFirstChildOfClass("Humanoid") 
+                    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - candy.Position).Magnitude
+                    if distance < ccdist and humanoid and humanoid.Health > 0 then
+                        ccdist = distance
+                        closest = candy
+                    end
+                end
+            end
+           
+            if closest then           
+                game:GetService("Players").LocalPlayer.Character.Lantern:Activate()
+                game:GetService("Players").LocalPlayer.Character.Lantern.Network:FireServer("Hit", closest)
+            end
+        end)
+        task.wait()
+    end
+end})
+
+Window:AddButton({text = "Drop Zone", callback = function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-28.1518955, 3.61763668, 690.802612, 0.999999881, 6.58728272e-09, 0.000437767449, -6.60399735e-09, 1, 3.81795928e-08, -0.000437767449, -3.81824812e-08, 0.999999881)
+end})
+
+Window:AddLabel({text = "Credits: BaconScripter"})
+
+Library:Init()
+else
+    game.StarterGui:SetCore("SendNotification", {Title = "Game Has Not Supported!", Duration = 10, Text = "", Icon = "rbxassetid://16678850189" })
+end
